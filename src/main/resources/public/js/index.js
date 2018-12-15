@@ -71,9 +71,14 @@ function addToDataTable(key, value) {
 }
 
 function showDetails() {
-    let e = document.getElementById("bankname");
-    let value = e.options[e.selectedIndex].value;
-    let selectedOption = e.options[e.selectedIndex].text;
+    let category = document.getElementById("categoryDropDown");
+    let selectedOption = category.options[category.selectedIndex].value;
+    clearInformation();
+    const table = document.getElementById("dataTable");
+
+    const header = table.createTHead();
+    header.innerHTML = selectedOption;
+
     getDatabyType(selectedOption);
 
 
