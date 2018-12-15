@@ -3,61 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Prasad's secure Vault</title>
-    <style>
-        .button {
-            background-color: #4CAF50;
-            border: double;
-            color: white;
-            padding: 10px 15px;
-            text-align: center;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background-color: green;
-        }
-
-
-    </style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body onload="getTypes()">
-<table>
+<table class="table">
     <tr>
-        <th>Select The Account:</th>
+        <th>Select Category:</th>
         <td>
-            <select id="bankname" onchange="showDetails()">
-                <option>Select the type</option>
+            <select id="categoryDropDown" onchange="showDetails()">
+                <option>  -  </option>
             </select>
         </td>
     </tr>
-    <tr>
-        <td>
-            <button class="button" onclick="clearInformation()">Clear</button>
-        </td>
-    </tr>
 </table>
-<table id="dataTable">
-    <tr>
-        <th>Account information</th>
-    </tr>
-    <tr>
-        <td>
-            <p> ID: </p>
-        </td>
-        <td>
-            <p id="id"></p>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <p> Password: </p>
-        </td>
-        <td>
-            <p id="password">
-        </td>
-    </tr>
+<table id="dataTable" class="table">
+
 </table>
 <script src="js/index.js"></script>
 

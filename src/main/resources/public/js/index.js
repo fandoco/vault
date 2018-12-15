@@ -10,13 +10,10 @@ function getTypes() {
     //register an event handler function
     req2.onreadystatechange = function () {
         if (req2.readyState === 4 && req2.status === 200) {
-            var response = req2.responseText;
-            var types = JSON.parse(response);
+            let response = req2.responseText;
+            const types = JSON.parse(response);
 
-            var list = "";
-            console.log(response);
             for (let i = 0; i < types.length; i++) {
-                console.log("types", types[i]);
                 CreateSelectDropDown(types[i])
 
             }
@@ -32,10 +29,11 @@ function CreateSelectDropDown(type) {
     dropdownOptions.setAttribute("value", type);
     item = document.createTextNode(type);
     dropdownOptions.appendChild(item);
-    document.getElementById("bankname").appendChild(dropdownOptions);
+    document.getElementById("categoryDropDown").appendChild(dropdownOptions);
 }
 
 function getDatabyType(type) {
+
     let url1 = "https://fandoco-vault.herokuapp.com/data?type=" + type;
 
     //Fetch the content of the url using the XMLHttpRequest object
@@ -50,68 +48,45 @@ function getDatabyType(type) {
             let listOfSecureDetails = JSON.parse(response);
 
             let list = "";
+
             for (let i = 0; i < listOfSecureDetails.length; i++) {
-                console.log("details", listOfSecureDetails[i]);
-                console.log(listOfSecureDetails.length);
+
                 let key = listOfSecureDetails[i].key;
                 let value = listOfSecureDetails[i].value;
-
+                addToDataTable(key,value);
             }
         }
     }
 }
 
-function myFunction() {
-    var table = document.getElementById("dataTable");
-    var row = table.insertRow(0);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    cell1.innerHTML = "NEW CELL1";
-    cell2.innerHTML = "NEW CELL2";
+function addToDataTable(key, value) {
+
+    const table = document.getElementById("dataTable");
+
+    const row = table.insertRow();
+    const cell1 = row.insertCell();
+    const cell2 = row.insertCell();
+    cell1.innerHTML = key;
+    cell2.innerHTML = value;
 }
 
 function showDetails() {
-    let e = document.getElementById("bankname");
-    let value = e.options[e.selectedIndex].value;
-    let selectedOption = e.options[e.selectedIndex].text;
+    let category = document.getElementById("categoryDropDown");
+    let selectedOption = category.options[category.selectedIndex].value;
+    clearInformation();
+    const table = document.getElementById("dataTable");
+
+    const header = table.createTHead();
+    header.innerHTML = selectedOption;
+
     getDatabyType(selectedOption);
 
-    /*switch (selectedOption) {
-        case "Post Bank Prasad":
-            document.getElementById("id").innerHTML = "id1";
-            document.getElementById("password").innerHTML = "password1";
-            break;
-        case "Post Bank Chanya":
-            document.getElementById("id").innerHTML = "id2";
-            document.getElementById("password").innerHTML = "password2";
-            break;
-        case "Rakuten Bank Prasad":
-            document.getElementById("id").innerHTML = "id3";
-            document.getElementById("password").innerHTML = "password3";
-            break;
-        case "Mizuho":
-            document.getElementById("id").value = "id4";
-            document.getElementById("password").innerHTML = "password4";
-            break;
-        case "North Pacific Prasad":
-            document.getElementById("id").innerHTML = "No Internet Banking";
-            document.getElementById("password").innerHTML = "";
-            break;
-        case "North Pacific Chanya":
-            document.getElementById("id").innerHTML = "No Internet Banking...";
-            document.getElementById("password").innerHTML = "";
-            break;
-        default:
-            document.getElementById("id").innerHTML = "id..";
-            document.getElementById("password").innerHTML = "password..";
 
-    }
-    */
 }
 
 function clearInformation() {
 
-    document.getElementById("bankname").selectedIndex = "0";
-    document.getElementById("id").innerHTML = "";
-    document.getElementById("password").innerHTML = "";
+    document.getElementById("categoryDropDown").selectedIndex = "0";
+    const Table = document.getElementById("dataTable");
+    Table.innerHTML = "";
 }
