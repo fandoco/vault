@@ -1,48 +1,13 @@
-function getDatabyType(type) {
-    let url1 = "https://fandoco-vault.herokuapp.com/data?type=" + type;
-
-//Fetch the content of the url using the XMLHttpRequest object
-    let req1 = new XMLHttpRequest();
-    req1.open("GET", url1);
-
-//req.setRequestHeader('Access-Control-Allow-Origin', '*')
-    req1.send(null);
-
-
-//register an event handler function
-
-    req1.onreadystatechange = function () {
-        if (req1.readyState === 4 && req1.status === 200) {
-            var response = req1.responseText;
-            var listOfSecureDetails = JSON.parse(response);
-
-            var list = "";
-            console.log(response);
-            for (let i = 0; i < listOfSecureDetails.length; i++) {
-                console.log("details", listOfSecureDetails[i]);
-                console.log(listOfSecureDetails.length);
-                let key = listOfSecureDetails[i].key;
-                let value = listOfSecureDetails[i].value;
-
-            }
-        }
-    }
-}
-
-
 function getTypes() {
     let url2 = "https://fandoco-vault.herokuapp.com/types";
 
-//Fetch the content of the url using the XMLHttpRequest object
+    //Fetch the content of the url using the XMLHttpRequest object
     let req2 = new XMLHttpRequest();
     req2.open("GET", url2);
-
-//req.setRequestHeader('Access-Control-Allow-Origin', '*')
     req2.send(null);
 
 
-//register an event handler function
-
+    //register an event handler function
     req2.onreadystatechange = function () {
         if (req2.readyState === 4 && req2.status === 200) {
             var response = req2.responseText;
@@ -58,6 +23,44 @@ function getTypes() {
         }
     }
 }
+
+function CreateSelectDropDown(type) {
+    let dropdownOptions;
+    let item;
+
+    dropdownOptions = document.createElement("option");
+    dropdownOptions.setAttribute("value", type);
+    item = document.createTextNode(type);
+    dropdownOptions.appendChild(item);
+    document.getElementById("bankname").appendChild(dropdownOptions);
+}
+
+function getDatabyType(type) {
+    let url1 = "https://fandoco-vault.herokuapp.com/data?type=" + type;
+
+    //Fetch the content of the url using the XMLHttpRequest object
+    let req1 = new XMLHttpRequest();
+    req1.open("GET", url1);
+    req1.send(null);
+
+    //register an event handler function
+    req1.onreadystatechange = function () {
+        if (req1.readyState === 4 && req1.status === 200) {
+            let response = req1.responseText;
+            let listOfSecureDetails = JSON.parse(response);
+
+            let list = "";
+            for (let i = 0; i < listOfSecureDetails.length; i++) {
+                console.log("details", listOfSecureDetails[i]);
+                console.log(listOfSecureDetails.length);
+                let key = listOfSecureDetails[i].key;
+                let value = listOfSecureDetails[i].value;
+
+            }
+        }
+    }
+}
+
 function myFunction() {
     var table = document.getElementById("dataTable");
     var row = table.insertRow(0);
@@ -65,23 +68,6 @@ function myFunction() {
     var cell2 = row.insertCell(1);
     cell1.innerHTML = "NEW CELL1";
     cell2.innerHTML = "NEW CELL2";
-}
-var a = ["a1", "b1", "c1", "d1", "d1"];
-
-//
-function CreateSelectDropDown(type) {
-    var z;
-    var t;
-
-    console.log(type)
-    //for (let i = 0; i < a.length; i++) {
-
-    z = document.createElement("option");
-    z.setAttribute("value", type);
-    t = document.createTextNode(type);
-    z.appendChild(t);
-    document.getElementById("bankname").appendChild(z);
-    //}
 }
 
 function showDetails() {
