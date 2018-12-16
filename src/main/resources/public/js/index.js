@@ -1,3 +1,21 @@
+function showLogin() {
+    document.getElementById("details").style.visibility = "hidden";
+    document.getElementById("info").innerHTML = "Please Login";
+    document.getElementById("loginDetails").style.visibility = "hidden";
+}
+
+function displayAddData() {
+    clearInformation();
+}
+
+function displayUpdate() {
+    clearInformation();
+}
+
+function displayLogin() {
+    document.getElementById("loginDetails").style.visibility = "visible";
+}
+
 function getTypes() {
     let url2 = "https://fandoco-vault.herokuapp.com/types";
 
@@ -5,8 +23,8 @@ function getTypes() {
     let req2 = new XMLHttpRequest();
     req2.open("GET", url2);
     req2.send(null);
-
-
+    document.getElementById("details").style.visibility = "visible";
+    document.getElementById("info").innerHTML = "Please select a category";
     //register an event handler function
     req2.onreadystatechange = function () {
         if (req2.readyState === 4 && req2.status === 200) {
@@ -47,8 +65,6 @@ function getDatabyType(type) {
             let response = req1.responseText;
             let listOfSecureDetails = JSON.parse(response);
 
-            let list = "";
-
             for (let i = 0; i < listOfSecureDetails.length; i++) {
 
                 let key = listOfSecureDetails[i].key;
@@ -74,6 +90,8 @@ function showDetails() {
     let category = document.getElementById("categoryDropDown");
     let selectedOption = category.options[category.selectedIndex].value;
     clearInformation();
+    document.getElementById("infoMessage").innerHTML = "<br>";
+
     const table = document.getElementById("dataTable");
 
     const header = table.createTHead();
@@ -86,7 +104,7 @@ function showDetails() {
 
 function clearInformation() {
 
-    document.getElementById("categoryDropDown").selectedIndex = "0";
+    //document.getElementById("categoryDropDown").selectedIndex = "0";
     const Table = document.getElementById("dataTable");
     Table.innerHTML = "";
 }
