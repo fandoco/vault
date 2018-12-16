@@ -1,3 +1,7 @@
+const domainName = "https://fandoco-vault.herokuapp.com";
+var loggedin = false;
+
+
 function showLogin() {
     document.getElementById("details").style.visibility = "hidden";
     document.getElementById("info").innerHTML = "Please Login";
@@ -16,8 +20,31 @@ function displayLogin() {
     document.getElementById("loginDetails").style.visibility = "visible";
 }
 
+function checkLogin() {
+   let id = document.getElementById("id").value
+    let password = document.getElementById("password").value
+
+    if (id === "aaa" && password === "bbb"){
+        document.getElementById("info").innerHTML = "Login Successful!";
+        document.getElementById("loginDetails").style.visibility = "hidden";
+        loggedin = true;
+    }else {
+        document.getElementById("info").innerHTML = "ID or Password is not valid";
+        document.getElementById("id").value = ""
+        document.getElementById("password").value = ""
+    }
+
+
+}
+
 function getTypes() {
-    let url2 = "https://fandoco-vault.herokuapp.com/types";
+
+if( loggedin === false){
+    document.getElementById("info").innerHTML = "Please Login First";
+
+    return;
+}
+    let url2 = domainName + "/types";
 
     //Fetch the content of the url using the XMLHttpRequest object
     let req2 = new XMLHttpRequest();
@@ -52,7 +79,7 @@ function CreateSelectDropDown(type) {
 
 function getDatabyType(type) {
 
-    let url1 = "https://fandoco-vault.herokuapp.com/data?type=" + type;
+    let url1 = domainName + "/data?type=" + type;
 
     //Fetch the content of the url using the XMLHttpRequest object
     let req1 = new XMLHttpRequest();
