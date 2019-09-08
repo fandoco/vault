@@ -65,7 +65,7 @@ function updateEntry() {
 
 
     let postreq = new XMLHttpRequest();
-    postreq.open('UPDATE', url, true);
+    postreq.open('PUT', url, true);
     postreq.setRequestHeader("Authorization", localStorage.getItem('token'));
     postreq.setRequestHeader('Content-type', 'application/json');
     postreq.send(body);
